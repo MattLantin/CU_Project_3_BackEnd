@@ -240,7 +240,7 @@ def view_ui():
     Return the html page to view basic site UI
     """
     
-    version = "v1.0.1"
+    version = "v1.0.2"
     year = "2014"
     return render_template('index.html', version=version, year=year)
 
