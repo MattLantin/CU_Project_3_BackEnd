@@ -10,54 +10,63 @@ For example, according to a study by the FAIR Health Care organization, the aver
 
 The variation in surgery costs across the United States can be a significant burden for patients. As such, it is important for patients to shop around for the best price on surgery and to understand their insurance coverage before undergoing surgery. This web-app aims to provide users with a simple tool to making finding the most cost effective health care facility to under a particular surgery. [Bard helped with this](https://g.co/bard/share/7991c25ec23c)
 
+![Basic User Interface](Images/ui1.png)
+
 ## Getting Started
 
 ### Dependencies
+1. Flask
+2. SQLAlchemy
+3. PostgreSQL
+4. SQlite3
 
 ### Installing
 
-* How/where to download your program
+Database Files Importing. All files found in the "Data" directory.
+* PostgresSQL: 
+	1. Using pgadmin create a database called "SugeryCharges"
+	2. Run the QuickDBD-SQL.sql
+	3. Import the "drg.csv", "providers.csv", and "drg_records.csv" in that order
+	4. update the Flask/app.py with the proper credentials for the PostgreSQL database
+* SQlite:
+	1. By default the Flask app is setup to use the SurgeryCharges.sqlite3 file.
 
 
-### Executing program
+### Executing Flask backend
 
-* How to run the program
-* Step-by-step bullets
+1. Download source code from GitHub
+2. Change to installation directory
+3. Execute "python Flask/app.py"
+4. Open http://localhost:5015/view in Browser 
 
-```
-code blocks for commands
-```
-
-## Help
-
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
-```
 
 ## Authors
 
 Contributors names and contact info
 
-Cameron Cullen
-Eric Llorente
-Matt Lantin
-Nathan Stevens 
+* Cameron Cullen
+* Eric Llorente
+* Matt Lantin
+* Nathan Stevens 
 
 ## Version History
-
-* 0.2
-    * Various bug fixes and optimizations
-* 0.1
+* 1.0.3
     * Initial Release
+
 
 ## License
 
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
+This project is licensed under the GPL License
+
 
 ## Acknowledgments
+Various frameworks, libraries, and Database engines used:
 
-* Flask
-* Leaflet
-* Plotly
-* Sqlite
+* [Flask Micro Framework](https://flask.palletsprojects.com/en/3.0.x/) 
+* [Leaflet](https://leafletjs.com/)
+* [Plotly](https://plotly.com/javascript/)
+* [Grid.js](https://gridjs.io/)
+* [SQLAlchemy](https://www.sqlalchemy.org/)
+* [SQlite3](https://www.sqlite.org/index.html)
+* [SQLiteStudio](https://sqlitestudio.pl/)
+* [PostgresSQL](https://www.postgresql.org/)

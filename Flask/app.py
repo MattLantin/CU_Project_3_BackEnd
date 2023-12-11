@@ -31,9 +31,11 @@ def welcome():
         f"<b>/api/v1.0/drg/&lt;drg_id&gt;</b> [ get all DRG records group by state ]<br/>"
         f"<b>/api/v1.0/categories</b> [ get the main categories ]<br/>"
         f"<b>/api/v1.0/definitions/&lt;category&gt;</b> [ get all the DRG definitions for a particular category ]<br/>"
-        f"<b>/api/v1.0/stats</b> [ get basic DRG statistics group by state ]<br/>"        
+        f"<b>/api/v1.0/stats</b> [ get basic DRG statistics group by state ]<br/>"
+        f"<b>/api/v1.0/top/providers/&lt;limit&gt;</b> [ get top n providers by patient discharges nation wide ]<br/>"        
         f"<b>/api/v1.0/providers/&lt;state&gt;</b> [ get all providers in a state ]<br/>"
-        f"<b>/api/v1.0/providers/&lt;state&gt;/&lt;drg_id&gt; </b>[ get all providers in a state for a particular DRG ]<br/>"
+        f"<b>/api/v1.0/providers/&lt;state&gt;/&lt;drg_id&gt; </b>[ get all providers in a state for a particular DRG ]<br/><br/>"
+        f"<b>/view </b>[ <a href='/view'> view the basic web UI </a>]<br/>"
     )
 
 @app.route("/api/v1.0/drg/<drg_id>")
@@ -150,6 +152,48 @@ def drg_stats():
     
     return jsonify(records)
 
+@app.route("/api/v1.0/top/providers/<limit>")
+def top_providers(limit):
+    """
+    Return the the top n providers nation wide grouping by state and provider
+    """
+    query = text('SELECT "Provider State", "Provider Name", COUNT(*), SUM("Total Discharges"), '\
+                 'AVG("Average Total Payments"), AVG("Average Medicare Payments"), '\
+                 'MIN("latitude"), MIN("longitude") '\
+                 'FROM "DRG_RECORDS" '\
+                 'INNER JOIN "PROVIDERS" '\
+	             'ON "PROVIDERS"."Provider Id" = "DRG_RECORDS"."Provider Id" '\
+                 'INNER JOIN "DRG" '\
+	             'ON "DRG"."DRG Id" = "DRG_RECORDS"."DRG Id" '\
+                 'GROUP BY "Provider State", "Provider Name" '\
+                 'ORDER BY SUM("Total Discharges") DESC LIMIT ' + limit)
+    print(query)
+    
+    with engine.connect() as conn:
+      results = conn.execute(query)
+    
+    providers = []
+    for row in results:
+      provider = dict()
+      
+      provider["state"] = row[0]
+      provider["name"] = row[1]
+      provider["drg_count"] = row[2]
+      provider["discharges"] = row[3]
+      provider["avg_payments"] = int(row[4])
+      provider["avg_medicare"] = int(row[5])
+      provider["avg_difference"] = int(row[4] - row[5])
+      
+      # calcuate the percent medicare payments
+      pct = int((row[5]/row[4])*100)
+      provider["pct_medicare"] = pct
+      provider["latitude"] = row[6]
+      provider["longitude"] = row[7]
+      
+      providers.append(provider)
+    
+    return jsonify(providers)
+
 @app.route("/api/v1.0/providers/<state>")
 def providers_for_state(state):
     """
@@ -240,7 +284,7 @@ def view_ui():
     Return the html page to view basic site UI
     """
     
-    version = "v1.0.2"
+    version = "v1.0.3"
     year = "2014"
     return render_template('index.html', version=version, year=year)
 
