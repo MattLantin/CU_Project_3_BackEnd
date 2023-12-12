@@ -3,7 +3,7 @@ let name = "Nathan's";
 // Copy over the variables from the previous activity
 let title = name + " Test Plotly Chart"; 
 
-let url = "http://localhost:5015/api/v1.0/drg/1";
+let url = "http://pi3.sytes.net:5015/api/v1.0/drg/1";
 
 d3.json(url).then(function (stateData) {
     console.log(stateData)
