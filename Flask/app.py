@@ -12,7 +12,14 @@ from flask_cors import CORS
 #################################################
 # Database Setup, either sqlite or postgresql
 #################################################
+
+# macos/linux
 engine = create_engine("sqlite:///../Data/SurgeryCharges.sqlite3")
+
+# windows
+#engine = create_engine("sqlite:///..\\Data\\SurgeryCharges.sqlite3")
+
+# RECOOMENDED
 #engine = create_engine('postgresql+psycopg2://ns96:java100@localhost/SurgeryCharges')
 
 #################################################
@@ -55,7 +62,7 @@ def drg_all(drg_id):
     print(query)
     
     with engine.connect() as conn:
-      results = conn.execute(query)
+      results = conn.execute(query).fetchall()
     
     records = dict()
     
@@ -87,7 +94,7 @@ def drg_categories():
                  'ORDER BY COUNT(*) DESC')
     print(query)
     with engine.connect() as conn:
-      results = conn.execute(query)
+      results = conn.execute(query).fetchall()
     
     categories = []
     for row in results:
@@ -103,7 +110,7 @@ def drg_definitions(category):
     query = text("SELECT * FROM \"DRG\" WHERE \"Category\" = " + "'" + category + "'")
     print(query)
     with engine.connect() as conn:
-      results = conn.execute(query)
+      results = conn.execute(query).fetchall()
     
     definitions = []
     for row in results:
@@ -132,7 +139,7 @@ def drg_stats():
     print(query)
     
     with engine.connect() as conn:
-      results = conn.execute(query)
+      results = conn.execute(query).fetchall()
     
     records = dict()
     
@@ -172,7 +179,7 @@ def top_providers(limit):
     print(query)
     
     with engine.connect() as conn:
-      results = conn.execute(query)
+      results = conn.execute(query).fetchall()
     
     providers = []
     for row in results:
@@ -214,7 +221,7 @@ def providers_for_state(state):
     print(query)
     
     with engine.connect() as conn:
-      results = conn.execute(query)
+      results = conn.execute(query).fetchall()
     
     providers = []
     for row in results:
@@ -255,7 +262,7 @@ def providers(state, drg_id):
     print(query)
     
     with engine.connect() as conn:
-      results = conn.execute(query)
+      results = conn.execute(query).fetchall()
     
     providers = []
     for row in results:
@@ -286,7 +293,7 @@ def view_ui():
     Return the html page to view basic site UI
     """
     
-    version = "v1.0.4"
+    version = "v1.0.5"
     year = "2014"
     return render_template('index.html', version=version, year=year)
 
