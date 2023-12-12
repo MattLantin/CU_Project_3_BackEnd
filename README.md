@@ -28,7 +28,7 @@ Database Files Importing. All files found in the "Data" directory.
 	1. Using pgAdmin create a database called "SugeryCharges"
 	2. Run the QuickDBD-SQL.sql
 	3. Import the "drg.csv", "providers.csv", and "drg_records.csv" in that order
-	4. update the Flask/app.py with the proper credentials for the PostgreSQL database. Make sure to uncomment this line and comment the sqlite line.
+	4. update the Flask/app.py with the proper credentials for the PostgreSQL database. Make sure to uncomment this line, and comment the Sqlite line.
 * SQlite:
 	1. By default the Flask app is setup to use the SurgeryCharges.sqlite3 file in the Data directory. Depending on if you are on Windows or MacOS please edit the app.py file to point to the correct location of this file.
 
