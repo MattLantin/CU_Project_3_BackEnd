@@ -16,27 +16,28 @@ The variation in surgery/treatment costs across the United States can be a signi
 
 ### Dependencies
 1. Flask
-2. SQLAlchemy
-3. PostgreSQL
-4. SQlite3
+2. Flask-CORS
+3. SQLAlchemy
+4. PostgreSQL
+5. Sqlite3
 
 ### Installing
 
 Database Files Importing. All files found in the "Data" directory.
-* PostgresSQL: 
-	1. Using pgadmin create a database called "SugeryCharges"
+* PostgresSQL (recommended): 
+	1. Using pgAdmin create a database called "SugeryCharges"
 	2. Run the QuickDBD-SQL.sql
 	3. Import the "drg.csv", "providers.csv", and "drg_records.csv" in that order
-	4. update the Flask/app.py with the proper credentials for the PostgreSQL database
+	4. update the Flask/app.py with the proper credentials for the PostgreSQL database. Make sure to uncomment this line and comment the sqlite line.
 * SQlite:
-	1. By default the Flask app is setup to use the SurgeryCharges.sqlite3 file.
+	1. By default the Flask app is setup to use the SurgeryCharges.sqlite3 file in the Data directory. Depending on if you are on Windows or MacOS please edit the app.py file to point to the correct location of this file.
 
 
 ### Executing Flask backend
 
 1. Download source code from GitHub
-2. Change to installation directory
-3. Execute "python Flask/app.py"
+2. Change to "installation location"/Flask directory
+3. Execute "python app.py"
 4. Open http://localhost:5015/view in Browser 
 
 
@@ -50,6 +51,8 @@ Contributors names and contact info
 * Nathan Stevens 
 
 ## Version History
+* 1.0.5
+    * Bug fix for running on Windows
 * 1.0.3
     * Initial Release
 
@@ -60,9 +63,10 @@ This project is licensed under the GPL License
 
 
 ## Acknowledgments
-Various frameworks, libraries, and Database engines used:
+Various frameworks, libraries, and database tools/engines used:
 
-* [Flask Micro Framework](https://flask.palletsprojects.com/en/3.0.x/) 
+* [Flask Micro Framework](https://flask.palletsprojects.com/en/3.0.x/)
+* [Flask-CORS](https://flask-cors.readthedocs.io/en/latest/) 
 * [Leaflet](https://leafletjs.com/)
 * [Plotly](https://plotly.com/javascript/)
 * [Grid.js](https://gridjs.io/)

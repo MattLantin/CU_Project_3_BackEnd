@@ -19,7 +19,7 @@ engine = create_engine("sqlite:///../Data/SurgeryCharges.sqlite3")
 # windows
 #engine = create_engine("sqlite:///..\\Data\\SurgeryCharges.sqlite3")
 
-# RECOOMENDED
+# RECOMMENDED
 #engine = create_engine('postgresql+psycopg2://ns96:java100@localhost/SurgeryCharges')
 
 #################################################
