@@ -7,6 +7,7 @@
 # Import the dependencies.
 from sqlalchemy import create_engine, text
 from flask import Flask, jsonify, render_template
+from flask_cors import CORS
 
 #################################################
 # Database Setup, either sqlite or postgresql
@@ -18,6 +19,7 @@ engine = create_engine("sqlite:///../Data/SurgeryCharges.sqlite3")
 # Flask Setup
 #################################################
 app = Flask(__name__)
+CORS(app)
 
 #################################################
 # Flask Routes
@@ -284,7 +286,7 @@ def view_ui():
     Return the html page to view basic site UI
     """
     
-    version = "v1.0.3"
+    version = "v1.0.4"
     year = "2014"
     return render_template('index.html', version=version, year=year)
 
