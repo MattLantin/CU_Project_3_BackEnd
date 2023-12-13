@@ -5,6 +5,7 @@
 # @version 1.0
 
 # Import the dependencies.
+import sys
 from sqlalchemy import create_engine, text
 from flask import Flask, jsonify, render_template
 from flask_cors import CORS
@@ -20,7 +21,16 @@ engine = create_engine("sqlite:///../Data/SurgeryCharges.sqlite3")
 #engine = create_engine("sqlite:///..\\Data\\SurgeryCharges.sqlite3")
 
 # RECOMMENDED
-#engine = create_engine('postgresql+psycopg2://ns96:java100@localhost/SurgeryCharges')
+#engine = create_engine('postgresql+psycopg2://postgres:postgres@localhost/SurgeryCharges')
+
+# make sure we can connect to the database, otherwise exit
+try:
+  conn = engine.connect()
+  conn.close()
+except Exception as e:
+  print("DB Connection Error\n")    
+  print(e)
+  sys.exit()
 
 #################################################
 # Flask Setup
@@ -293,7 +303,7 @@ def view_ui():
     Return the html page to view basic site UI
     """
     
-    version = "v1.0.5"
+    version = "v1.0.6"
     year = "2014"
     return render_template('index.html', version=version, year=year)
 
